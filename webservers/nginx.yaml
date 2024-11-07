@@ -1,0 +1,41 @@
+# Manual Steps
+ # webserver
+# sudo apt update
+# sudo apt install nginx -y
+# sudo apt install unzip -y 
+
+  # running the website
+# cd /tmp
+# wget https://www.free-css.com/assets/files/free-css-templates/download/page295/sbs.zip
+# unzip sbs.zip
+# sudo mv sbs-html/ /var/www/html/skate
+
+
+---
+- name: deploy a website
+  hosts: all
+  become: true
+  tasks:
+    - name: install nginx & unzip
+      ansible.builtin.apt: 
+        name:
+          - nginx
+          - unzip
+        update_cache: yes
+        state: present
+    - name: Download a website
+      ansible.builtin.uri:
+        url: https://www.free-css.com/assets/files/free-css-templates/download/page295/sbs.zip
+        dest: /tmp/sbs.zip
+    - name: unzip the website
+      ansible.builtin.unarchive:
+        src: /tmp/sbs.zip
+        dest: /tmp
+        remote_src: yes
+    - name: move the files
+      ansible.builtin.copy: 
+        src: /tmp/sbs.zip
+        dest: /var/www/html/skate
+        remote_src: yes
+      
+  
