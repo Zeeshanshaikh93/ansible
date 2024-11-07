@@ -24,7 +24,7 @@
         update_cache: yes
         state: present
     - name: Download a website
-      ansible.builtin.uri:
+      ansible.builtin.get_url:
         url: https://www.free-css.com/assets/files/free-css-templates/download/page295/sbs.zip
         dest: /tmp/sbs.zip
     - name: unzip the website
