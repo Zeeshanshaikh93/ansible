@@ -16,8 +16,8 @@
   hosts: all
   become: true
   tasks:
-    - name: install nginx & unzip
-      ansible.builtin.apt: 
+    - name: install nginx and unzip
+      ansible.builtin.apt:
         name:
           - nginx
           - unzip
@@ -32,10 +32,10 @@
         src: /tmp/sbs.zip
         dest: /tmp
         remote_src: yes
-    - name: move the files
-      ansible.builtin.copy: 
-        src: /tmp/sbs.zip
-        dest: /var/www/html/skate
-        remote_src: yes
+    - name: Copy HTML files to web server directory
+      ansible.builtin.copy:
+        src: /tmp/sbs-html/
+        dest: /var/www/html/skating
+        remote_src: true
       
   
